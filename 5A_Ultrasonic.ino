@@ -1,32 +1,29 @@
-int trigpin=9;
-int echopin=8;
-float duration;
+const int trigPin = 2;
+const int echoPin = 4;
+const int buzzerPin = 9;
+
+
 void setup() {
-  // put your setup code here, to run once:
-  pinMode(trigpin,OUTPUT);
-  pinMode(7,OUTPUT);
-  pinMode(echopin,INPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
   Serial.begin(9600);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  digitalWrite(trigpin,LOW);
+  digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
-  digitalWrite(trigpin,HIGH);
+  digitalWrite(trigPin,HIGH);
   delayMicroseconds(10);
-  digitalWrite(trigpin,LOW);
-  duration=pulseIn(echopin,HIGH);
-  float cm=duration/29/2;
-  Serial.print("Distance in cm = ");
+  digitalWrite(trigPin,LOW);
+  float duration = pulseIn(echoPin,HIGH);
+  float cm = duration / 29 / 2;
+  Serial.print("Disance in cm: ");
   Serial.println(cm);
-  if(cm <= 4.00)
-  {
-    digitalWrite(7,HIGH);
-  }
-  else
-  {
-    digitalWrite(7,LOW);
+  if(cm > 10){
+    digitalWrite(buzzerPin,LOW);
+  }else{
+    digitalWrite(buzzerPin,HIGH);
   }
   delay(1000);
 }
